@@ -18,6 +18,8 @@ export function calculateBowlingScore(string: string) {
     }
   }
 
+  console.log(arr);
+
   return arr.reduce((acc, curVal, i) => {
     if (i < 10) {
       if (curVal === "X") {
@@ -60,5 +62,5 @@ const strikeFrameTotal = (
   } else if (oneAheadFrameRolls.includes("/")) {
     return 20;
   }
-  return 10 + ordinaryFrameTotal(twoAheadFrameRolls);
+  return 10 + ordinaryFrameTotal(oneAheadFrameRolls);
 };
