@@ -1,4 +1,4 @@
-export function calculateBowlingScore(string: string) {
+export function calculateBowlingScore(string: string): number {
   let arr = string.split(" ");
 
   if (arr.length === 10 && arr[9].length > 2) {
