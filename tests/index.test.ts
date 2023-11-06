@@ -66,3 +66,13 @@ describe("test different input notation for final bonus roll with strikes and sp
     expect(calculateBowlingScore(scores)).toBe(157);
   });
 });
+describe("test a random mix of scores", () => {
+  test("18 rolls: a mix of hits, misses, spares, and strikes = 76", () => {
+    const scores = "9- 71 -- 6/ 33 X 5/ -- X --";
+    expect(calculateBowlingScore(scores)).toBe(76);
+  });
+  test("18 rolls: a mix of hits, misses, spares, and strikes = 76", () => {
+    const scores = "25 1- -- 8- 3/ X 5/ -7 81 X 2/";
+    expect(calculateBowlingScore(scores)).toBe(102);
+  });
+});
