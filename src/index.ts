@@ -2,7 +2,20 @@ export function calculateBowlingScore(string: string) {
   let arr = string.split(" ");
 
   if (arr.length === 10 && arr[9].length > 2) {
-    arr = [...arr.slice(0, 9), arr[9].slice(0, 2), arr[9].slice(2)];
+    if (arr[9].at(0) === "X") {
+      if (arr[9].at(1) === "X") {
+        arr = [
+          ...arr.slice(0, 9),
+          arr[9].slice(0, 1),
+          arr[9].slice(1, 2),
+          arr[9].slice(2),
+        ];
+      } else {
+        arr = [...arr.slice(0, 9), arr[9].slice(0, 1), arr[9].slice(1)];
+      }
+    } else {
+      arr = [...arr.slice(0, 9), arr[9].slice(0, 2), arr[9].slice(2)];
+    }
   }
 
   return arr.reduce((acc, curVal, i) => {
