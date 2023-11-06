@@ -5,19 +5,18 @@ export function calculateBowlingScore(string: string) {
     arr = [...arr.slice(0, 9), arr[9].slice(0, 2), arr[9].slice(2)];
   }
 
-  let total = 0;
-
-  for (let i = 0; i < 10; i++) {
-    if (arr[i] === "X") {
-      total += strikeFrameTotal(arr[i + 1], arr[i + 2]);
-    } else if (arr[i].includes("/")) {
-      total += spareFrameTotal(arr[i + 1]);
-    } else {
-      total += ordinaryFrameTotal(arr[i]);
+  return arr.reduce((acc, curVal, i) => {
+    if (i < 10) {
+      if (curVal === "X") {
+        return acc + strikeFrameTotal(arr[i + 1], arr[i + 2]);
+      } else if (curVal.includes("/")) {
+        return acc + spareFrameTotal(arr[i + 1]);
+      } else {
+        return acc + ordinaryFrameTotal(arr[i]);
+      }
     }
-  }
-
-  return total;
+    return acc;
+  }, 0);
 }
 
 const ordinaryFrameTotal = (frameRolls: string): number => {
