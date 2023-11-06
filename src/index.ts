@@ -9,42 +9,44 @@ export function calculateBowlingScore(string: string) {
 
   for (let i = 0; i < 10; i++) {
     if (arr[i] === "X") {
-      total += 10;
-
-      if (arr[i + 1] === "X") {
-        total += 10;
-
-        if (arr[i + 2] === "X") {
-          total += 10;
-        } else {
-          const roll1 = arr[i + 2].at(0) === "-" ? 0 : Number(arr[i + 2].at(0));
-
-          total += roll1;
-        }
-      } else {
-        if (arr[i + 1].includes("/")) {
-          total += 10;
-        } else {
-          const roll1 = arr[i + 2].at(0) === "-" ? 0 : Number(arr[i + 2].at(0));
-          const roll2 = arr[i + 2].at(1) === "-" ? 0 : Number(arr[i + 2].at(1));
-          total += roll1 + roll2;
-        }
-      }
+      total += strikeFrameTotal(arr[i + 1], arr[i + 2]);
     } else if (arr[i].includes("/")) {
-      total += 10;
-
-      if (arr[i + 1] === "X") {
-        total += 10;
-      } else {
-        const roll1 = arr[i + 1].at(0) === "-" ? 0 : Number(arr[i + 1].at(0));
-        total += roll1;
-      }
+      total += spareFrameTotal(arr[i + 1]);
     } else {
-      const roll1 = arr[i].at(0) === "-" ? 0 : Number(arr[i].at(0));
-      const roll2 = arr[i].at(1) === "-" ? 0 : Number(arr[i].at(1));
-      total += roll1 + roll2;
+      total += ordinaryFrameTotal(arr[i]);
     }
   }
 
   return total;
 }
+
+const ordinaryFrameTotal = (frameRolls: string): number => {
+  const roll1 = frameRolls.at(0) === "-" ? 0 : Number(frameRolls.at(0));
+  const roll2 = frameRolls.at(1) === "-" ? 0 : Number(frameRolls.at(1));
+  return roll1 + roll2;
+};
+
+const lastRollBonus = (frameRolls: string): number => {
+  if (frameRolls === "X") {
+    return 10;
+  } else {
+    const roll1 = frameRolls.at(0) === "-" ? 0 : Number(frameRolls.at(0));
+    return roll1;
+  }
+};
+
+const spareFrameTotal = (oneAheadFrameRolls: string): number => {
+  return 10 + lastRollBonus(oneAheadFrameRolls);
+};
+
+const strikeFrameTotal = (
+  oneAheadFrameRolls: string,
+  twoAheadFrameRolls: string
+): number => {
+  if (oneAheadFrameRolls === "X") {
+    return 20 + lastRollBonus(twoAheadFrameRolls);
+  } else if (oneAheadFrameRolls.includes("/")) {
+    return 20;
+  }
+  return 10 + ordinaryFrameTotal(twoAheadFrameRolls);
+};
