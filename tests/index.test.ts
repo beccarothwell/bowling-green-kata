@@ -45,4 +45,24 @@ describe("test different input notation for final bonus roll with strikes and sp
     const scores = "5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ X5/";
     expect(calculateBowlingScore(scores)).toBe(160);
   });
+  test(`Strike noted with no space before bonus rolls - X-7.
+  21 rolls: 9 pairs of 5 and spare, 1 strike, with two bonus rolls a miss and a 7 = 8 frames * 15 points + 1 frame * 20 points + 1 frame * 17 points = 157`, () => {
+    const scores = "5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ X-7";
+    expect(calculateBowlingScore(scores)).toBe(157);
+  });
+  test(`Strike noted with a space before bonus rolls - X -7.
+  21 rolls: 9 pairs of 5 and spare, 1 strike, with two bonus rolls a miss and a 7 = 8 frames * 15 points + 1 frame * 20 points + 1 frame * 17 points = 157`, () => {
+    const scores = "5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ X -7";
+    expect(calculateBowlingScore(scores)).toBe(157);
+  });
+  test(`Strike noted with no space before bonus rolls - X7-.
+  21 rolls: 9 pairs of 5 and spare, 1 strike, with two bonus rolls a 7 and a miss = 8 frames * 15 points + 1 frame * 20 points + 1 frame * 17 points = 157`, () => {
+    const scores = "5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ X7-";
+    expect(calculateBowlingScore(scores)).toBe(157);
+  });
+  test(`Strike noted with a space before bonus rolls - X 7-.
+  21 rolls: 9 pairs of 5 and spare, 1 strike, with two bonus rolls a 7 and a miss = 8 frames * 15 points + 1 frame * 20 points + 1 frame * 17 points = 157`, () => {
+    const scores = "5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ 5/ X 7-";
+    expect(calculateBowlingScore(scores)).toBe(157);
+  });
 });
